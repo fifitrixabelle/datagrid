@@ -11,3 +11,5 @@ gem "sinatra"
 gem "wirble"
 gem "rspec"
 gem "spreadsheet"
+gem "pry"
+
