@@ -1,12 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'sinatra'
+require 'csv'
 require 'spreadsheet'
 require 'pry'
-
-$:.unshift File.join(".","lib")
-
-require 'base'
 
 # folders
 set :public_folder, File.dirname(__FILE__) + '/public'
@@ -20,9 +17,10 @@ end
 
 get '/files/:year/:month/:report.:ext' do |year,month,report,ext|
   path = File.join( settings.files_folder, year, month, report ) + "." + ext
-  if ext.downcase == "csv"
+  if ext.downcase =~ /xls/
     send_file path
   else
-    book = Spreadsheet.open path
+    @csv = CSV.read path
+    erb :grid
   end
 end

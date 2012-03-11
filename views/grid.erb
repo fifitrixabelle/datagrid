@@ -1,0 +1,15 @@
+<table>
+  <tr>
+    <% row = @csv.shift %>
+    <% row.each do |cell| %>
+      <th><%= cell %></th>
+    <% end %>
+  </tr>
+  <% @csv.each do |row| %>
+    <tr>
+      <% row.each do |cell| %>
+        <td><%= cell %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
