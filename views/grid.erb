@@ -1,15 +1,34 @@
-<table>
-  <tr>
-    <% row = @csv.shift %>
-    <% row.each do |cell| %>
-      <th><%= cell %></th>
-    <% end %>
-  </tr>
-  <% @csv.each do |row| %>
-    <tr>
-      <% row.each do |cell| %>
-        <td><%= cell %></td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+<html>
+  <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title><%= @report.upcase %></title>
+		<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-1.8.18.custom.min.js"></script>
+		<link type="text/css" href="/css/ui-darkness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+		<link type="text/css" href="/css/datagrid.css" rel="stylesheet" />
+		<script type="text/javascript">
+      $(function(){
+        $('#datatable').dataTable();
+      });
+    </script>
+  </head>
+  <body>
+    <div id="results">
+      <table>
+        <tr>
+          <% row = @csv.shift %>
+          <% row.each do |cell| %>
+            <th><%= cell %></th>
+          <% end %>
+        </tr>
+        <% @csv.each do |row| %>
+          <tr>
+            <% row.each do |cell| %>
+              <td><%= cell %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </body>
+</html>

@@ -17,13 +17,14 @@ end
 
 get '/files/:year/:month/:report.:ext' do |year,month,report,ext|
   path = File.join( settings.files_folder, year, month, report ) + "." + ext
+  @report = report
   case ext.downcase
   when 'html'
     @csv = CSV.read( path.sub( /html$/, 'csv' ), :encoding => 'windows-1251:utf-8' )
     return erb :grid
   when 'xls'
     if ! File.exists? path
-      render_xls report, path
+      render_xls path
     end
   end
   send_file path
@@ -31,13 +32,13 @@ end
 
 private
 
-def render_xls( report_name, path )
+def render_xls( path )
   csv = CSV.read( path.sub( /xls$/, 'csv' ), :encoding => 'windows-1251:utf-8' )
 
   save_path = path
   book = Spreadsheet::Workbook.new
   sheet = book.create_worksheet
-  sheet.name = report_name
+  sheet.name = @report
 
   #write header
   sheet.row(0).concat csv.shift
